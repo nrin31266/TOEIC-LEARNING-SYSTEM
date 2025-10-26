@@ -1,5 +1,6 @@
 // src/api/axiosInstance.ts
-import { getKeycloak } from "@/features/keycloak/keycloak";
+
+import KeycloakClient from "@/features/keycloak/keycloak";
 import axios from "axios";
 
 const axiosInstance = axios.create({
@@ -9,7 +10,7 @@ const axiosInstance = axios.create({
 });
 
 // === TRẠNG THÁI REFRESH TOKEN TOÀN CỤC ===
-const keycloak = getKeycloak();
+const keycloak = KeycloakClient.getInstance().keycloak;
 let isRefreshing = false;
 let refreshPromise: Promise<void> | null = null;
 

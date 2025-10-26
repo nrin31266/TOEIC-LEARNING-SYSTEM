@@ -1,9 +1,9 @@
 import type { IUserProfile } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
-import { getKeycloak } from "../keycloak";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import FullScreenSpinner from "@/components/FullScreenSpinner";
 import AccessDenied from "@/components/AccessDenied";
+import KeycloakClient from "../keycloak";
 
 type AuthContextType = {
   profile: IUserProfile | null;
@@ -30,29 +30,28 @@ const AuthProvider = () => {
     if (initFlag) return;
     initFlag = true;
     console.log("Start keycloak...")
-    const kecloak = getKeycloak();
-    
-    
-    const authenticated = await kecloak.init({
+    const keycloak = KeycloakClient.getInstance().keycloak;
+
+    await keycloak.init({
       onLoad: "check-sso",
       pkceMethod: "S256",
       silentCheckSsoRedirectUri:
         window.location.origin + "/silent-check-sso.html",
     });
-    if (authenticated) {
-      const roles = kecloak.realmAccess?.roles || [];
-      const userProfile = await kecloak.loadUserProfile();
-      const token = kecloak.token || "";
+    if (keycloak.authenticated) {
+      const roles = keycloak.realmAccess?.roles || [];
+      const userProfile = await keycloak.loadUserProfile();
+      const token = keycloak.token || "";
       setProfile({
         ...userProfile,
         roles,
         token,
       });
-
+      KeycloakClient.getInstance().setupTokenRefresh();
       console.log("User authenticated");
     }else{
       console.log("User not authenticated");
-      kecloak.login();
+      keycloak.login();
     }
     setLoading(false);
   

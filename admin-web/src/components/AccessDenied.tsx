@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { getKeycloak } from '@/features/keycloak/keycloak'
+import KeycloakClient from '@/features/keycloak/keycloak';
+
 import { useAuth } from '@/features/keycloak/providers/AuthProvider'
 
 
@@ -23,7 +24,7 @@ const AccessDenied = () => {
                 className='w-full'
                 
                 onClick={() => {
-                  const keycloak = getKeycloak();
+                  const keycloak = KeycloakClient.getInstance().keycloak;
                    keycloak.logout({
                       // redirectUri: window.location.origin,
                     });
