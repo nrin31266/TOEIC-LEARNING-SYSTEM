@@ -1,4 +1,4 @@
-package com.rin.toeic.exception;
+package com.rin.toeic.common.exception;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BaseException extends RuntimeException {
-    private final ErrorCode errorCode;
+    private final BaseErrorCode errorCode;
 
-    public BaseException(ErrorCode errorCode) {
+    public BaseException(BaseErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
-    public BaseException(ErrorCode errorCode, String message) {
+    public BaseException(BaseErrorCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }

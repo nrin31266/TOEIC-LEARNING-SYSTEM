@@ -5,8 +5,8 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.rin</groupId>
-    <artifactId>common-toeic</artifactId>
+    <groupId>com.rin.toeic</groupId>
+    <artifactId>common</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

@@ -1,4 +1,4 @@
-package com.rin.toeic.constants;
+package com.rin.toeic.common.constants;
 
 public final class KafkaTopics {
     private KafkaTopics() {}

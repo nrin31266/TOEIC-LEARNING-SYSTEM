@@ -1,6 +1,6 @@
-package com.rin.toeic.exception;
+package com.rin.toeic.common.exception;
 
-import com.rin.toeic.dto.ApiResponse;
+import com.rin.toeic.common.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class BaseExceptionHandler {
     @ExceptionHandler(Exception.class)
     ResponseEntity<ApiResponse> handleException(Exception e) {
-        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+        BaseErrorCode baseErrorCode = BaseErrorCode.INTERNAL_SERVER_ERROR;
         System.err.println("Unhandled exception: " + e.getMessage());
-        return ResponseEntity.status(errorCode.getStatus()).body(ApiResponse.builder()
-                .code(errorCode.getCode())
+        return ResponseEntity.status(baseErrorCode.getStatus()).body(ApiResponse.builder()
+                .code(baseErrorCode.getCode())
                 .message(e.getMessage())
                 .build());
     }
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ApiResponse> handleBaseException(BaseException ex) {
-        var errorCode = ex.getErrorCode();
+        var baseErrorCode = ex.getErrorCode();
         return ResponseEntity
-                .status(errorCode.getStatus())
+                .status(baseErrorCode.getStatus())
                 .body(ApiResponse.builder()
-                        .code(errorCode.getCode())
+                        .code(baseErrorCode.getCode())
                         .message(ex.getMessage())
                         .build());
     }
