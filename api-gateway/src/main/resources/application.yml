@@ -7,32 +7,17 @@ spring:
 
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true # Kich hoat tinh nang phat hien dich vu tu dong
-          lower-case-service-id: true # Chuyen doi ten dich vu thanh chu thuong
+      httpclient:
+        websocket:
+          max-frame-payload-length: 65536  # 👈 Tăng kích thước khung tối đa nếu cần
       routes:
-#        - id: user-service
-##          uri: http://localhost:8081
-#          uri: lb://user-service
-#          predicates:
-#            - Path=/api/users/**
-##        Bỏ nếu dùng keycloak
-##        - id: user-service-auth
-##          uri: lb://user-service
-##          predicates:
-##            - Path=/api/auth/**
-#
-#        - id: order-service
-##          uri: http://localhost:8082
-#          uri: lb://order-service
-#          predicates:
-#            - Path=/api/orders/**
-#        - id: inventory-service
-##          uri: http://localhost:8084
-#          uri: lb://inventory-service
-#          predicates:
-#            - Path=/api/inventories/**
+        - id: notification-ws
+          uri: lb:ws://notification-service   # 👈 Dùng lb:ws:// thay vì lb:http://
+          predicates:
+            - Path=/ws/**  # 👈 hoặc /ws/** nếu bạn muốn ngắn hơn
+          filters:
+            - RemoveRequestHeader=Cookie # 👈 Xoá header Cookie để tránh vấn đề với WebSocket
+            - PreserveHostHeader # 👈 Giữ nguyên header Host
 
 eureka:
   client:
