@@ -1,6 +1,6 @@
-package com.rin.toeic.common.exception;
+package com.rin.englishlearning.common.exception;
 
-import com.rin.toeic.common.dto.ApiResponse;
+import com.rin.englishlearning.common.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

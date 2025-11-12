@@ -1,4 +1,4 @@
-package com.rin.toeic.common.dto;
+package com.rin.englishlearning.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

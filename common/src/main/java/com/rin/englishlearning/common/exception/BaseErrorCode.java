@@ -1,4 +1,4 @@
-package com.rin.toeic.common.exception;
+package com.rin.englishlearning.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
